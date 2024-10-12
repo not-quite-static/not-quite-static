@@ -12,15 +12,20 @@
       "html": "/views/home.html",
       "layout": "/views/layout.html"
     },
-    "/blog/(?<page>[a-zA-Z]+)": {
+    "/blog": {
       "html": "/views/blog.html",
       "layout": "/views/layout.html",
-      "isRegex": true
+      "script": "/js/blog.js"
+    },
+    "/blog/(?<page>[a-zA-Z0-9_]+)": {
+      "html": "/views/blog_page.html",
+      "layout": "/views/layout.html",
+      "isRegex": true,
+      "script": "/js/blog.js"
     },
     "/counter": {
       "html": "/views/counter.html",
-      "layout": "/views/layout.html",
-      "script": "/js/counter.js"
+      "layout": "/views/layout.html"
     }
   }
 }

@@ -1,9 +1,11 @@
 import { getConfig } from "./config.js";
 
-function render(html, params) {
+const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+
+async function render(html, params) {
   const names = Object.keys(params);
   const vals = Object.values(params);
-  return new Function(...names, `return \`${html}\`;`)(...vals);
+  return new AsyncFunction(...names, `return \`${html}\`;`)(...vals);
 }
 
 export const router = {
@@ -48,10 +50,11 @@ export const router = {
     console.log(config);
     // does this page have a script for it?
     if (config["script"] !== undefined) {
-      const script = document.createElement("script");
-      script.src = config["script"];
-      script.type = "module";
-      document.head.appendChild(script);
+      await import(config["script"])
+      // const script = document.createElement("script");
+      // script.src = config["script"];
+      // script.type = "module";
+      // document.head.appendChild(script);
     }
     // clear the current app
     // todo: save the last layout used so we know if we need to clear the whole app
@@ -63,13 +66,13 @@ export const router = {
 
       const page = await (await fetch(config["html"])).text();
       document.getElementById("body").innerHTML = "";
-      document.getElementById("body").innerHTML = render(page, {
+      document.getElementById("body").innerHTML = await render(page, {
         params: config.params,
       });
     } else {
       const page = await (await fetch(config["html"])).text();
       document.getElementById("app").innerHTML = "";
-      document.getElementById("app").innerHTML = render(page, {
+      document.getElementById("app").innerHTML = await render(page, {
         params: config.params,
       });
     }
