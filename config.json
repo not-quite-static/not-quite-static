@@ -1,25 +1,26 @@
 {
-    "routes": {
-        "404": {
-            "html": "/views/404.html",
-            "layout": "/views/layout.html"
-        },
-        "/test": {
-            "html": "/views/test.html",
-            "layout": "/views/layout.html"
-        }        ,
-        "/": {
-            "html": "/views/home.html",
-            "layout": "/views/layout.html"
-        },
-        "/blog/(?<page>[a-zA-Z]+)": {
-            "html": "/views/blog.html",
-            "layout": "/views/layout.html"
-        },
-        "/counter": {
-            "html": "/views/counter.html",
-            "layout": "/views/layout.html",
-            "script": "/js/counter.js"
-        }
+  "routes": {
+    "404": {
+      "html": "/views/404.html",
+      "layout": "/views/layout.html"
+    },
+    "/test": {
+      "html": "/views/test.html",
+      "layout": "/views/layout.html"
+    },
+    "/": {
+      "html": "/views/home.html",
+      "layout": "/views/layout.html"
+    },
+    "/blog/(?<page>[a-zA-Z]+)": {
+      "html": "/views/blog.html",
+      "layout": "/views/layout.html",
+      "isRegex": true
+    },
+    "/counter": {
+      "html": "/views/counter.html",
+      "layout": "/views/layout.html",
+      "script": "/js/counter.js"
     }
+  }
 }
