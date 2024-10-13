@@ -2,30 +2,32 @@
   "routes": {
     "404": {
       "html": "/views/404.html",
-      "layout": "/views/layout.html"
+      "layout": "/layouts/base.html"
     },
     "/test": {
       "html": "/views/test.html",
-      "layout": "/views/layout.html"
+      "layout": "/layouts/base.html"
+    },
+    "/license": {
+      "html": "/views/license.html",
+      "layout": "/layouts/base.html",
+      "script": "/js/blog.js"
     },
     "/": {
       "html": "/views/home.html",
-      "layout": "/views/layout.html"
+      "layout": "/layouts/base.html",
+      "script": "/js/blog.js"
     },
     "/blog": {
       "html": "/views/blog.html",
-      "layout": "/views/layout.html",
+      "layout": "/layouts/base.html",
       "script": "/js/blog.js"
     },
     "/blog/(?<page>[a-zA-Z0-9_]+)": {
       "html": "/views/blog_page.html",
-      "layout": "/views/layout.html",
+      "layout": "/layouts/base.html",
       "isRegex": true,
       "script": "/js/blog.js"
-    },
-    "/counter": {
-      "html": "/views/counter.html",
-      "layout": "/views/layout.html"
     }
   }
 }

@@ -10,6 +10,7 @@ async function render(html, params) {
 
 export const router = {
   currentPage: "",
+  currentLayout: "",
   initAutoRoute: () => {
     var getParentAnchor = function (/**@type {EventTarget | null} */ element) {
       while (element !== null) {
@@ -58,12 +59,15 @@ export const router = {
     }
     // clear the current app
     // todo: save the last layout used so we know if we need to clear the whole app
-    document.getElementById("app").innerHTML = "";
+    // document.getElementById("app").innerHTML = "";
     // load the layout if
     if (config["layout"] !== undefined) {
-      const layout = await (await fetch(config["layout"])).text();
-      document.getElementById("app").innerHTML = layout;
-
+      if(router.currentLayout != config["layout"])
+      {
+        const layout = await (await fetch(config["layout"])).text();
+        document.getElementById("app").innerHTML = layout;
+        router.currentLayout = config["layout"];
+      }
       const page = await (await fetch(config["html"])).text();
       document.getElementById("body").innerHTML = "";
       document.getElementById("body").innerHTML = await render(page, {

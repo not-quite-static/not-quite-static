@@ -3,17 +3,17 @@ import { marked } from "/vender/js/marked.esm.js";
 const _blog = {
   getBlogPage: async () => {
     const data = await (await fetch("/data/blog.json")).json()
-    var posts = []
+    var output = "";
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      posts.push(`
+      output = output + `
         <div>
           <h4>${element.name} <a href="/blog/${element.page}">Read</a></h4>
         </div>
-        `)
+        `;
 
     }
-    return "".concat(posts)
+    return output
   },
   renderBlogPost: async (/**@type {string} */ path) => {
 

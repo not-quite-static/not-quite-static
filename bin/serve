@@ -14,12 +14,13 @@ class Handler(SimpleHTTPRequestHandler):
     if not os.path.exists(request_file_path):
       self.path = 'index.html'
 
+    SimpleHTTPRequestHandler.do_GET(self)
+
     # disable http cache to help with dev
     self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
     self.send_header("Pragma", "no-cache")
     self.send_header("Expires", "0")
 
-    return SimpleHTTPRequestHandler.do_GET(self)
 
 
 host = '0.0.0.0'
