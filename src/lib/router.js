@@ -1,5 +1,7 @@
 import { getConfig } from "./config.js";
 
+import { load, current, call } from "./script_manager.js";
+
 const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
 
 async function render(html, params) {
@@ -48,38 +50,33 @@ export const router = {
     };
   },
   handel: async (/** @type {RouteConfig} */ config) => {
+    current(null)
     console.log(config);
     // does this page have a script for it?
     if (config["script"] !== undefined) {
       await import(config["script"])
-      // const script = document.createElement("script");
-      // script.src = config["script"];
-      // script.type = "module";
-      // document.head.appendChild(script);
+    }
+    if (config["module"] !== undefined) {
+      await load(config["module"])
+      current(config["module"])
     }
     // clear the current app
     // todo: save the last layout used so we know if we need to clear the whole app
     // document.getElementById("app").innerHTML = "";
     // load the layout if
     if (config["layout"] !== undefined) {
-      if(router.currentLayout != config["layout"])
+      if(router.currentLayout !== config["layout"])
       {
         const layout = await (await fetch(config["layout"])).text();
         document.getElementById("app").innerHTML = layout;
         router.currentLayout = config["layout"];
       }
-      const page = await (await fetch(config["html"])).text();
-      document.getElementById("body").innerHTML = "";
-      document.getElementById("body").innerHTML = await render(page, {
-        params: config.params,
-      });
+      await router.renderPage("body", config);
     } else {
-      const page = await (await fetch(config["html"])).text();
-      document.getElementById("app").innerHTML = "";
-      document.getElementById("app").innerHTML = await render(page, {
-        params: config.params,
-      });
+      await router.renderPage("app", config);
+
     }
+    await call("init", null)
     router.currentPage = window.location.pathname;
   },
   goto: (/** @type {string} */ path) => {
@@ -87,4 +84,25 @@ export const router = {
     const route = getConfig().getRoute(path);
     router.handel(route);
   },
+  renderPage: async (elId, config) => {
+    if(config["html"] === undefined) {
+      console.log("using js for page")
+      document.getElementById(elId).innerHTML = "";
+
+      const template = await call("render", {
+        params: config.params,
+      })
+      template(document.getElementById(elId))
+    }
+    else
+    {
+      console.log("using html for page")
+      const page = await (await fetch(config["html"])).text();
+      const content = await render(page, {
+        params: config.params,
+      });
+      document.getElementById(elId).innerHTML = "";
+      document.getElementById(elId).innerHTML = content
+    }
+  }
 };

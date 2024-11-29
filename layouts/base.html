@@ -5,7 +5,60 @@
     <li><a href="/blog">Blog</a></li>
     <li><a href="/fdfdfdfgss">a 404 page</a></li>
     <li><a href="/license">license</a></li>
+    <li><a href="/module">module</a></li>
   </ul>
 </nav>
-
+</br>
 <div id="body" class="container"></div>
+
+<style>
+  .calculator {
+    width: min(400px, 95vw);
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .calculator button {
+    width: calc((100% - 20px) / 3);
+    height: 50px;
+    font-size: 2em;
+    background-color: gray;
+    border: 0;
+    border-radius: 5px;
+  }
+  .calculator button:nth-child(3n+1),
+  .calculator button:last-child {
+    margin-right: 0;
+  }
+  .calculator button:nth-child(n+11) {
+    background-color: orange;
+  }
+  .calculator button:nth-child(12) {
+    background-color: gray;
+  }
+  .calculator button:last-child {
+    background-color: green;
+  }
+  .number {
+    height: 1.4em;
+  }
+  .operations {
+    font-size: .5em;
+  }
+  .screen {
+    display: block;
+    width: 100%;
+    height: 75px;
+    font-size: 2em;
+    background-color: gray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: right;
+    padding: 0 10px;
+  }
+</style>

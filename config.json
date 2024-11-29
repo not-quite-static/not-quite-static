@@ -21,7 +21,12 @@
     "/blog": {
       "html": "/views/blog.html",
       "layout": "/layouts/base.html",
-      "script": "/js/blog.js"
+      "script": "/js/blog.js",
+      "module": "/js/module.js"
+    },
+    "/module": {
+      "layout": "/layouts/base.html",
+      "module": "/js/module.js"
     },
     "/blog/(?<page>[a-zA-Z0-9_]+)": {
       "html": "/views/blog_page.html",
