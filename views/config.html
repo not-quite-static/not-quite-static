@@ -1,0 +1,18 @@
+<h1>Config</h1>
+
+<p>
+  Not quite static v2 uses a json file for its config<br/>
+  The config is a object of string keys and RouteObject <br/>
+  The 404 route will be used if a route can't be found<br/>
+</p>
+
+
+
+<h3>RouteObject</h3>
+<p>
+  html: a path to a html file or undefined, if layout is set it will be applied to #body if not then #app<br/>
+  layout: a path to a html file or undefined<br/>
+  script: a path to a script file or undefined<br/>
+  module: a path to a module file or undefined, if html is not set then the render method will be used to render the page<br/>
+  isRegex: bool or undefined, if true then the path will be treated as regex<br/>
+</p>

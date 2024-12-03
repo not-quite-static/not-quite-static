@@ -24,6 +24,10 @@
       "script": "/js/blog.js",
       "module": "/js/module.js"
     },
+    "/config": {
+      "html": "/views/config.html",
+      "layout": "/layouts/base.html"
+    },
     "/module": {
       "layout": "/layouts/base.html",
       "module": "/js/module.js"
